@@ -22,9 +22,9 @@ namespace BookMyShowApi.Services
             return _mapper.Map<List<TheatreCore>>(theatres);
         }
 
-        public TheatreCore GetTheatre(int id)
+        public TheatreCore GetTheatreById(int id)
         {
-            var theatre = _dataContext.Single<Theatre>("Select * from Theater where TheatreId=@0", id);
+            var theatre = _dataContext.Single<Theatre>("Select * from Theater where Id=@0", id);
             return _mapper.Map<TheatreCore>(theatre);
         }
 

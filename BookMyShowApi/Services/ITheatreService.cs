@@ -10,7 +10,7 @@ namespace BookMyShowApi.Services
     {
         IEnumerable<TheatreCore> GetAllTheatres();
 
-        TheatreCore GetTheatre(int id);
+        TheatreCore GetTheatreById(int id);
 
         void AddNewTheatre(TheatreCore theatre);
 

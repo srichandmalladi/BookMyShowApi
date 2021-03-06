@@ -2,47 +2,45 @@
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Web.Http.Description;
 
 namespace BookMyShowApi.Controllers
 {
-    [Route("api/Theatre")]
+    [Route("api/theatre")]
     [ApiController]
     public class TheatreController : ControllerBase
     {
-        private ITheatreService _theatre;
-        public TheatreController(ITheatreService theatre)
+        private ITheatreService TheatreService;
+        public TheatreController(ITheatreService theatreService)
         {
-            this._theatre = theatre;
+            this.TheatreService = theatreService;
         }
 
-        // GET: api/Theatre
-        [Route("")]
+        // GET: api/theatre/all
+        [Route("all")]
         public IEnumerable<TheatreCore> GetAllTheatres()
         {
-            return _theatre.GetAllTheatres();
+            return TheatreService.GetAllTheatres();
         }
 
-        // GET api/Theatre/id
+        // GET api/theatre/id
         [Route("{id}")]
-        [ResponseType(typeof(TheatreCore))]
-        public TheatreCore GetTheatre(int id)
+        public TheatreCore GetTheatreById(int id)
         {
-            return _theatre.GetTheatre(id);
+            return TheatreService.GetTheatreById(id);
         }
 
-        // Post api/Theatre/Add
-        [Route("Add")]
+        // Post api/theatre/add
+        [Route("addTheatre")]
         public void AddNewTheatre(TheatreCore theatre)
         {
-            _theatre.AddNewTheatre(theatre);
+            TheatreService.AddNewTheatre(theatre);
         }
 
-        // DELETE api/Theatre/Delete/id
-        [Route("Delete/{id}")]
+        // DELETE api/theatre/delete/id
+        [Route("delete/{id}")]
         public void Delete(int id)
         {
-            _theatre.Delete(id);
+            TheatreService.Delete(id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BookMyShowApi.Models.CoreModels;
+using BookMyShowApi.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace BookMyShowApi.Services
     {
         IEnumerable<TicketCore> GetAllTickets();
 
-        TicketCore GetTicket(int id);
+        TicketCore GetTicketById(int id);
 
         void AddNewTicket(TicketCore Ticket);
 
         void Delete(int id);
+
+        IEnumerable<TicketCore> getTicketsByShowId(int showId);
+
+        IEnumerable<TicketView> getTicketsByUserId(string userId);
     }
 }

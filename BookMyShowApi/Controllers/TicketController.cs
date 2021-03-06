@@ -1,48 +1,61 @@
 ﻿using BookMyShowApi.Models.CoreModels;
+using BookMyShowApi.Models.ViewModels;
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Web.Http.Description;
 
 namespace BookMyShowApi.Controllers
 {
-    [Route("api/Ticket")]
+    [Route("api/ticket")]
     [ApiController]
     public class TicketController : ControllerBase
     {
-        ITicketService _ticket;
-        public TicketController(ITicketService ticket)
+        ITicketService TicketService;
+        public TicketController(ITicketService ticketService)
         {
-            this._ticket = ticket;
+            this.TicketService = ticketService;
         }
 
-        // GET: api/Ticket
-        [Route("")]
+        // GET: api/ticket
+        [Route("all")]
         public IEnumerable<TicketCore> GetAllTickets()
         {
-            return _ticket.GetAllTickets();
+            return TicketService.GetAllTickets();
         }
 
-        // GET api/Ticket/id
+        // GET api/ticket/id
         [Route("{id}")]
-        [ResponseType(typeof(TicketCore))]
-        public TicketCore Get(int id)
+        public TicketCore GetTicketById(int id)
         {
-            return _ticket.GetTicket(id);
+            return TicketService.GetTicketById(id);
         }
 
-        // Post api/Ticket/Add
-        [Route("Add")]
+        // Post api/ticket/add
+        [Route("addTicket")]
         public void AddNewTicket(TicketCore Ticket)
         {
-            _ticket.AddNewTicket(Ticket);
+            TicketService.AddNewTicket(Ticket);
         }
 
-        // DELETE api/Ticket/Delete/id
-        [Route("Delete/{id}")]
+        // DELETE api/ticket/delete/id
+        [Route("delete/{id}")]
         public void Delete(int id)
         {
-            _ticket.Delete(id);
+            TicketService.Delete(id);
+        }
+
+        //GET api/ticket/getTicketsByShowId
+        [Route("getTicketsByShowId/{showId}")]
+        public IEnumerable<TicketCore> getTicketsByShowId(int showId)
+        {
+            return TicketService.getTicketsByShowId(showId);
+        }
+
+        //GET api/ticket/getTicketsByUserId
+        [Route("getTicketsByUserId/{userId}")]
+        public IEnumerable<TicketView> getTicketsByShowId(string userId)
+        {
+            return TicketService.getTicketsByUserId(userId);
         }
     }
 }

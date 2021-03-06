@@ -18,7 +18,8 @@ namespace BookMyShowApi
 {
     public class Startup
     {
-        private Container container = new SimpleInjector.Container();
+        private readonly string CorsPolicy = "_cors";
+        private Container container = new Container();
         public Startup(IConfiguration configuration)
         {
             container.Options.ResolveUnregisteredConcreteTypes = false;
@@ -72,6 +73,20 @@ namespace BookMyShowApi
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddCors(
+                options =>
+                {
+                    options.AddPolicy(name: CorsPolicy,
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+
+                    });
+                }
+            );
             services.AddControllersWithViews();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSimpleInjector(container, options =>
@@ -113,6 +128,7 @@ namespace BookMyShowApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(CorsPolicy);
 
             app.UseRouting();
 
@@ -120,11 +136,11 @@ namespace BookMyShowApi
 
             app.UseAuthorization();
 
-            app.UseCors(builder =>
+            /*app.UseCors(builder =>
                 builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
                 .AllowAnyHeader()
                 .AllowAnyMethod()
-            );
+            );*/
 
             app.UseEndpoints(endpoints =>
             {

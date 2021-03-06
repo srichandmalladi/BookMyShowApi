@@ -10,7 +10,7 @@ namespace BookMyShowApi.Services
     {
         IEnumerable<ShowCore> GetAllShows();
 
-        ShowCore GetShow(int id);
+        ShowCore GetShowById(int id);
 
         void AddNewShow(ShowCore show);
 

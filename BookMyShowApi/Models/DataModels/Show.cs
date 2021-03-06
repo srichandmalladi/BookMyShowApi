@@ -9,14 +9,12 @@ namespace BookMyShowApi.Models.DataModels
     [PetaPoco.TableName("Show")]
     public class Show
     {
-        public int ShowId { get; set; }
+        public int Id { get; set; }
 
         public int TheatreId { get; set; }
 
         public int MovieId { get; set; }
 
         public int Slot { get; set; }
-
-        public int NoOfTicketsBooked { get; set; }
     }
 }

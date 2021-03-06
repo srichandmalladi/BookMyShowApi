@@ -8,7 +8,7 @@ namespace BookMyShowApi.Models.CoreModels
 {
     public class TheatreCore
     {
-        public int TheatreId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

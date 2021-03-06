@@ -1,50 +1,46 @@
-﻿using AutoMapper;
-using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.DataModels;
+﻿using BookMyShowApi.Models.CoreModels;
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Web.Http.Description;
 
 namespace BookMyShowApi.Controllers
 {
-    [Route("api/Show")]
+    [Route("api/show")]
     [ApiController]
     public class ShowController : ControllerBase
     {
-        IShowService _show;
-        public ShowController(IShowService show)
+        IShowService ShowService;
+        public ShowController(IShowService showService)
         {
-            this._show = show;
+            this.ShowService = showService;
         }
 
-        // GET: api/Show
-        [Route("")]
+        // GET: api/show/all
+        [Route("all")]
         public IEnumerable<ShowCore> GetAllShows()
         {
-            return _show.GetAllShows();
+            return ShowService.GetAllShows();
         }
 
-        // GET api/Show/id
+        // GET api/show/id
         [Route("{id}")]
-        [ResponseType(typeof(ShowCore))]
-        public ShowCore GetShowS(int id)
+        public ShowCore GetShowById(int id)
         {
-            return _show.GetShow(id);
+            return ShowService.GetShowById(id);
         }
 
         // Post api/Show/Add
-        [Route("Add")]
+        [Route("addShow")]
         public void AddNewShow(ShowCore show)
         {
-            _show.AddNewShow(show);
+            ShowService.AddNewShow(show);
         }
 
-        // DELETE api/Show/Delete/id
-        [Route("Delete/{id}")]
+        // DELETE api/show/delete/id
+        [Route("delete/{id}")]
         public void Delete(int id)
         {
-            _show.Delete(id);
+            ShowService.Delete(id);
         }
     }
 }

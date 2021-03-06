@@ -9,11 +9,13 @@ namespace BookMyShowApi.Models.DataModels
     [TableName("Ticket")]
     public class Ticket
     {
-        public int TicketId { get; set; }
+        public int Id { get; set; }
 
         public string UserId { get; set; }
 
-        public string ShowId { get; set; }
+        public int ShowId { get; set; }
+
+        public DateTime Date { get; set; }
 
         public int NoOfTicketsBooked { get; set; }
 

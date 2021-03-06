@@ -25,8 +25,6 @@ namespace BookMyShowApi.Models.ViewModels
 
         public int Slot { get; set; }
 
-        public int NoOfTicketsBooked { get; set; }
-
         public string City { get; set; }
 
         public int NoOfSlots { get; set; }

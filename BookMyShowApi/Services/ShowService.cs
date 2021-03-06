@@ -26,16 +26,16 @@ namespace BookMyShowApi.Services
             return _mapper.Map<List<ShowCore>>(shows);
         }
 
-        public ShowCore GetShow(int id)
+        public ShowCore GetShowById(int id)
         {
-            var show = _dataContext.Single<Show>("Select * from Show where ShowId=@0", id);
+            var show = _dataContext.Single<Show>("Select * from Show where Id=@0", id);
             return _mapper.Map<ShowCore>(show);
         }
 
         public void AddNewShow(ShowCore show)
         {
             Show _show = _mapper.Map<Show>(show);
-            _dataContext.Insert("Show", "ShowId", _show);
+            _dataContext.Insert(_show);
         }
 
         public void Delete(int id)

@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PetaPoco;
 
-namespace BookMyShowApi.Models.CoreModels
+namespace BookMyShowApi.Models.ViewModels
 {
-    public class TicketCore
+    public class TicketView
     {
-        public int Id { get; set; }
-
         public string UserId { get; set; }
 
-        public int ShowId { get; set; }
+        public string Title { get; set; }
+
+        public string Name { get; set; }
 
         public DateTime Date { get; set; }
 

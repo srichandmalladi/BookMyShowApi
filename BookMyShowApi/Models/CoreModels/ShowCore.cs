@@ -8,14 +8,12 @@ namespace BookMyShowApi.Models.CoreModels
 {
     public class ShowCore
     {
-        public int ShowId { get; set; }
+        public int Id { get; set; }
 
         public int TheatreId { get; set; }
 
         public int MovieId { get; set; }
 
         public int Slot { get; set; }
-
-        public int NoOfTicketsBooked { get; set; }
     }
 }

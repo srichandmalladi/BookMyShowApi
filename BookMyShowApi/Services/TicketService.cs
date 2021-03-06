@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookMyShowApi.Models.CoreModels;
 using BookMyShowApi.Models.DataModels;
+using BookMyShowApi.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace BookMyShowApi.Services
@@ -23,9 +24,9 @@ namespace BookMyShowApi.Services
             return _mapper.Map<List<TicketCore>>(tickets);
         }
 
-        public TicketCore GetTicket(int id)
+        public TicketCore GetTicketById(int id)
         {
-            var ticket = _dataContext.Single<Ticket>("Select * from Ticket where TicketId=@0", id);
+            var ticket = _dataContext.Single<Ticket>("Select * from Ticket where Id=@0", id);
             return _mapper.Map<TicketCore>(ticket);
         }
 
@@ -33,15 +34,22 @@ namespace BookMyShowApi.Services
         {
             Ticket _ticket = _mapper.Map<Ticket>(ticket);
             _dataContext.Insert(_ticket);
-            Show show = _dataContext.Single<Show>("Select * from Show where ShowId =@0", _ticket.ShowId);
-            show.NoOfTicketsBooked = show.NoOfTicketsBooked + _ticket.NoOfTicketsBooked;
-            _dataContext.Update("Show", "ShowId", show);
-
         }
 
         public void Delete(int id)
         {
             _dataContext.Delete<Ticket>(id);
+        }
+        public IEnumerable<TicketCore> getTicketsByShowId(int showId)
+        {
+            var tickets = _dataContext.Query<Ticket>("Select * from Ticket where showId=@0",showId);
+            return _mapper.Map<List<TicketCore>>(tickets);
+        }
+
+        public IEnumerable<TicketView> getTicketsByUserId(string userId)
+        {
+            var tickets= _dataContext.Query<TicketView>("Select * from TicketView where userId=@0", userId);
+            return tickets;
         }
     }
 }

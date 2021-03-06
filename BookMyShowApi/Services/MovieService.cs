@@ -26,7 +26,7 @@ namespace BookMyShowApi.Services
 
         public MovieCore GetMovie(int id)
         {
-            var movie = _dataContext.Single<Movie>("Select * from Movie where MovieId=@0", id);
+            var movie = _dataContext.Single<Movie>("Select * from Movie where Id=@0", id);
             return _mapper.Map<MovieCore>(movie);
         }
 

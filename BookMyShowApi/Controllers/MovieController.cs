@@ -6,56 +6,57 @@ using System.Collections.Generic;
 
 namespace BookMyShowApi.Controllers
 {
-    [Route("api/Movie")]
+    [Route("api/movie")]
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private IMovieService _movie;
+        private IMovieService MovieService;
 
-        public MovieController(IMovieService movie)
+        public MovieController(IMovieService movieService)
         {
-            this._movie = movie;
+            this.MovieService = movieService;
         }
         
-        // GET: api/Movie
-        [Route("")]
+        // GET: api/movie/all
+        [Route("all")]
         public IEnumerable<MovieCore> GetAllMovies()
         {
-            return _movie.GetAllMovies();
+            return MovieService.GetAllMovies();
         }
 
-        // GET api/Movie/id
+        // GET api/movie/id
         [Route("{id}")]
         public MovieCore GetMovie(int id)
         {
-            return _movie.GetMovie(id);
+            return MovieService.GetMovie(id);
         }
 
-        // Post api/Movie/Add
-        [Route("Add")]
+        // Post api/movie/add
+        [Route("addMovie")]
         public void AddNewMovie(MovieCore movie)
         {
-            _movie.AddNewMovie(movie);
+            MovieService.AddNewMovie(movie);
         }
 
-        // DELETE api/Movie/Delete/id
-        [Route("Delete/{id}")]
+        // DELETE api/movie/delete/id
+        [Route("delete/{id}")]
         public void Delete(int id)
         {
-            _movie.Delete(id);
+            MovieService.Delete(id);
         }
 
-        //api/Movie/getMovies
-        [Route("getMovies/{city}")]
+        //GET api/movie/getMovies
+        [Route("getMoviesByCity/{city}")]
         public IEnumerable<MoviesTheatre> MoviesInCity(string city)
         {
-            return _movie.MoviesInCity(city);
+            return MovieService.MoviesInCity(city);
         }
 
-        [Route("getMovie/{id}")]
-        public MoviesTheatre getMovie(int id)
+        //GET api/movie/getMovieByShowId/id
+        [Route("getMovieByShowId/{id}")]
+        public MoviesTheatre getMovieByShowId(int id)
         {
-            return _movie.getMovieByShowId(id);
+            return MovieService.getMovieByShowId(id);
         }
     }
 }

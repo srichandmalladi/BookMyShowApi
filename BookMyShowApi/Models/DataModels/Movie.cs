@@ -9,7 +9,7 @@ namespace BookMyShowApi.Models.DataModels
     [PetaPoco.TableName("Movie")]
     public class Movie
     {
-        public int MovieId {get; set;}
+        public int Id {get; set;}
 
         public string Title { get; set; }
 

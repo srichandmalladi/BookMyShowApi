@@ -16,7 +16,9 @@ namespace BookMyShowApi.Services
         void AddNewMovie(MovieCore movie);
         
         void Delete(int id);
+
         IEnumerable<MoviesTheatre> MoviesInCity(string city);
+
         MoviesTheatre getMovieByShowId(int id);
     }
 }
