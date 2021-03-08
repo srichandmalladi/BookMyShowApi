@@ -11,25 +11,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/UserProfile")]
+    [Route("api/userProfile")]
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private UserManager<User> _userManager;
-        private AuthenticationContext _dbcontext;
-        public UserProfileController(UserManager<User> userManager, AuthenticationContext AuthContext)
+        private UserManager<User> UserManager;
+        public UserProfileController(UserManager<User> userManager)
         {
-            _userManager = userManager;
-            _dbcontext = AuthContext;
+            UserManager = userManager;
         }
 
         [HttpGet]
         [Authorize]
-        //GET : /api/UserProfile
-        public async Task<Object> GetUserProfile()
+        //GET : /api/userProfile
+        public async Task<object> GetUserProfile()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await UserManager.FindByIdAsync(userId);
             return new
             {
                 user.Id,

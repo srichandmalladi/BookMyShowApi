@@ -30,25 +30,25 @@ namespace BookMyShowApi.Services
             return _mapper.Map<TicketCore>(ticket);
         }
 
-        public void AddNewTicket(TicketCore ticket)
+        public void AddTicket(TicketCore ticket)
         {
             Ticket _ticket = _mapper.Map<Ticket>(ticket);
             _dataContext.Insert(_ticket);
         }
 
-        public void Delete(int id)
+        public void DeleteTicket(int id)
         {
             _dataContext.Delete<Ticket>(id);
         }
-        public IEnumerable<TicketCore> getTicketsByShowId(int showId)
+        public IEnumerable<TicketCore> GetTicketsByShowId(int showId)
         {
             var tickets = _dataContext.Query<Ticket>("Select * from Ticket where showId=@0",showId);
             return _mapper.Map<List<TicketCore>>(tickets);
         }
 
-        public IEnumerable<TicketView> getTicketsByUserId(string userId)
+        public IEnumerable<TicketView> GetTicketsByUserId(string userId)
         {
-            var tickets= _dataContext.Query<TicketView>("Select * from TicketView where userId=@0", userId);
+            var tickets= _dataContext.Query<TicketView>("Select * from TicketView where userId=@0 order by Date desc", userId);
             return tickets;
         }
     }

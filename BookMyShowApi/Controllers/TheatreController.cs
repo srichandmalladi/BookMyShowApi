@@ -30,17 +30,17 @@ namespace BookMyShowApi.Controllers
         }
 
         // Post api/theatre/add
-        [Route("addTheatre")]
-        public void AddNewTheatre(TheatreCore theatre)
+        [Route("add")]
+        public void AddTheatre(TheatreCore theatre)
         {
-            TheatreService.AddNewTheatre(theatre);
+            TheatreService.AddTheatre(theatre);
         }
 
         // DELETE api/theatre/delete/id
         [Route("delete/{id}")]
-        public void Delete(int id)
+        public void DeleteTheatre(int id)
         {
-            TheatreService.Delete(id);
+            TheatreService.DeleteTheatre(id);
         }
     }
 }

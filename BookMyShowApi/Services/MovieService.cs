@@ -24,19 +24,19 @@ namespace BookMyShowApi.Services
             return _mapper.Map<List<MovieCore>>(movies);
         }
 
-        public MovieCore GetMovie(int id)
+        public MovieCore GetMovieById(int id)
         {
             var movie = _dataContext.Single<Movie>("Select * from Movie where Id=@0", id);
             return _mapper.Map<MovieCore>(movie);
         }
 
-        public void AddNewMovie(MovieCore movie)
+        public void AddMovie(MovieCore movie)
         {
             Movie _movie = _mapper.Map<Movie>(movie);
             _dataContext.Insert(_movie);
         }
 
-        public void Delete(int id)
+        public void DeleteMovie(int id)
         {
             _dataContext.Delete<Movie>(id);
         }
@@ -46,7 +46,7 @@ namespace BookMyShowApi.Services
             return _dataContext.Query<MoviesTheatre>("select * from Movie_Theatre where City=@0", city);
         }
 
-        public MoviesTheatre getMovieByShowId(int id)
+        public MoviesTheatre GetMovieByShowId(int id)
         {
             return _dataContext.Single<MoviesTheatre>("select * from Movie_Theatre where ShowId=@0", id);
         }

@@ -31,31 +31,31 @@ namespace BookMyShowApi.Controllers
         }
 
         // Post api/ticket/add
-        [Route("addTicket")]
-        public void AddNewTicket(TicketCore Ticket)
+        [Route("add")]
+        public void AddTicket(TicketCore Ticket)
         {
-            TicketService.AddNewTicket(Ticket);
+            TicketService.AddTicket(Ticket);
         }
 
         // DELETE api/ticket/delete/id
         [Route("delete/{id}")]
-        public void Delete(int id)
+        public void DeleteTicket(int id)
         {
-            TicketService.Delete(id);
+            TicketService.DeleteTicket(id);
         }
 
         //GET api/ticket/getTicketsByShowId
         [Route("getTicketsByShowId/{showId}")]
-        public IEnumerable<TicketCore> getTicketsByShowId(int showId)
+        public IEnumerable<TicketCore> GetTicketsByShowId(int showId)
         {
-            return TicketService.getTicketsByShowId(showId);
+            return TicketService.GetTicketsByShowId(showId);
         }
 
         //GET api/ticket/getTicketsByUserId
         [Route("getTicketsByUserId/{userId}")]
-        public IEnumerable<TicketView> getTicketsByShowId(string userId)
+        public IEnumerable<TicketView> GetTicketsByShowId(string userId)
         {
-            return TicketService.getTicketsByUserId(userId);
+            return TicketService.GetTicketsByUserId(userId);
         }
     }
 }

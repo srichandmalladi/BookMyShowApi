@@ -26,23 +26,23 @@ namespace BookMyShowApi.Controllers
 
         // GET api/movie/id
         [Route("{id}")]
-        public MovieCore GetMovie(int id)
+        public MovieCore GetMovieById(int id)
         {
-            return MovieService.GetMovie(id);
+            return MovieService.GetMovieById(id);
         }
 
         // Post api/movie/add
-        [Route("addMovie")]
-        public void AddNewMovie(MovieCore movie)
+        [Route("add")]
+        public void AddMovie(MovieCore movie)
         {
-            MovieService.AddNewMovie(movie);
+            MovieService.AddMovie(movie);
         }
 
         // DELETE api/movie/delete/id
         [Route("delete/{id}")]
-        public void Delete(int id)
+        public void DeleteMovie(int id)
         {
-            MovieService.Delete(id);
+            MovieService.DeleteMovie(id);
         }
 
         //GET api/movie/getMovies
@@ -54,9 +54,9 @@ namespace BookMyShowApi.Controllers
 
         //GET api/movie/getMovieByShowId/id
         [Route("getMovieByShowId/{id}")]
-        public MoviesTheatre getMovieByShowId(int id)
+        public MoviesTheatre GetMovieByShowId(int id)
         {
-            return MovieService.getMovieByShowId(id);
+            return MovieService.GetMovieByShowId(id);
         }
     }
 }

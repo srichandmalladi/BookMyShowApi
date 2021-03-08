@@ -32,13 +32,13 @@ namespace BookMyShowApi.Services
             return _mapper.Map<ShowCore>(show);
         }
 
-        public void AddNewShow(ShowCore show)
+        public void AddShow(ShowCore show)
         {
             Show _show = _mapper.Map<Show>(show);
             _dataContext.Insert(_show);
         }
 
-        public void Delete(int id)
+        public void DeleteShow(int id)
         {
             _dataContext.Delete<Show>(id);
         }

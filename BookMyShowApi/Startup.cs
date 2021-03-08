@@ -39,7 +39,8 @@ namespace BookMyShowApi
 
             services.Configure<AppSettings>(Configuration.GetSection("ConnectionStrings"));
 
-            services.AddDbContext<AuthenticationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("authenticationContext")));
+            services.AddDbContext<AuthenticationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("authenticationContext")));
 
             services.AddIdentity<User,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
@@ -64,7 +65,7 @@ namespace BookMyShowApi
             }).AddJwtBearer(x => {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = false;
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
@@ -83,7 +84,6 @@ namespace BookMyShowApi
                         builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
-
                     });
                 }
             );
@@ -91,30 +91,19 @@ namespace BookMyShowApi
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSimpleInjector(container, options =>
             {
-                // AddAspNetCore() wraps web requests in a Simple Injector scope and
-                // allows request-scoped framework services to be resolved.
                 options.AddAspNetCore()
-
-                    // Ensure activation of a specific framework type to be created by
-                    // Simple Injector instead of the built-in configuration system.
-                    // All calls are optional. You can enable what you need. For instance,
-                    // ViewComponents, PageModels, and TagHelpers are not needed when you
-                    // build a Web API.
                     .AddControllerActivation()
                     .AddViewComponentActivation()
                     .AddPageModelActivation()
                     .AddTagHelperActivation();
 
-                // Optionally, allow application components to depend on the non-generic
-                // ILogger (Microsoft.Extensions.Logging) or IStringLocalizer
-                // (Microsoft.Extensions.Localization) abstractions.
                 options.AddLogging();
                 options.AddLocalization();
 
                 container.Register<IMovieService, MovieService>();
                 container.Register<ITheatreService, TheatreService>();
                 container.Register<ITicketService, TicketService>();
-                container.Register<IShowService, ShowService>();
+                container.Register<IShowService, ShowService>(Lifestyle.Transient);
                 container.Register<IDataBaseContext, DataBaseContext>();
             });
         }
@@ -135,12 +124,6 @@ namespace BookMyShowApi
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            /*app.UseCors(builder =>
-                builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-            );*/
 
             app.UseEndpoints(endpoints =>
             {

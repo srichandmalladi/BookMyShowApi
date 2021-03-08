@@ -29,18 +29,18 @@ namespace BookMyShowApi.Controllers
             return ShowService.GetShowById(id);
         }
 
-        // Post api/Show/Add
-        [Route("addShow")]
-        public void AddNewShow(ShowCore show)
+        // Post api/show/add
+        [Route("add")]
+        public void AddShow(ShowCore show)
         {
-            ShowService.AddNewShow(show);
+            ShowService.AddShow(show);
         }
 
         // DELETE api/show/delete/id
         [Route("delete/{id}")]
-        public void Delete(int id)
+        public void DeleteShow(int id)
         {
-            ShowService.Delete(id);
+            ShowService.DeleteShow(id);
         }
     }
 }

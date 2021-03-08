@@ -14,24 +14,22 @@ using System.Threading.Tasks;
 
 namespace BookMyShowApi.Controllers
 {
-    [Route("api/User")]
+    [Route("api/user")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private UserManager<User> _userManager;
-        private SignInManager<User> _signInManager;
-        private readonly ApplicationSettings _appSettings;
+        private UserManager<User> UserManager;
+        private readonly ApplicationSettings AppSettings;
 
-        public UsersController(UserManager<User> userManager, SignInManager<User> signInManager, IOptions<ApplicationSettings> appSettings)
+        public UsersController(UserManager<User> userManager, IOptions<ApplicationSettings> appSettings)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._appSettings = appSettings.Value;
+            this.UserManager = userManager;
+            this.AppSettings = appSettings.Value;
         }
 
         [HttpPost]
-        [Route("Register")]
-        //POST: api/users/Register
+        [Route("register")]
+        //POST: api/user/register
         public async Task<object> PostUser(UserModel model)
         {
             model.Role = "user";
@@ -43,8 +41,8 @@ namespace BookMyShowApi.Controllers
             };
             try
             {
-                var result = await _userManager.CreateAsync(newUser, model.Password);
-                await _userManager.AddToRoleAsync(newUser, model.Role);
+                var result = await UserManager.CreateAsync(newUser, model.Password);
+                await UserManager.AddToRoleAsync(newUser, model.Role);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -53,15 +51,15 @@ namespace BookMyShowApi.Controllers
             }
         }
         [HttpPost]
-        [Route("Login")]
-        //POST: api/users/Login
+        [Route("login")]
+        //POST: api/user/login
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
-            var role = await _userManager.GetRolesAsync(user);
+            var user = await UserManager.FindByNameAsync(model.UserName);
+            var role = await UserManager.GetRolesAsync(user);
             IdentityOptions _options = new IdentityOptions();
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            if (user != null && await UserManager.CheckPasswordAsync(user, model.Password))
             {
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -71,7 +69,7 @@ namespace BookMyShowApi.Controllers
                         new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AppSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);

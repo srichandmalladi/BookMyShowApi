@@ -12,8 +12,8 @@ namespace BookMyShowApi.Services
 
         TheatreCore GetTheatreById(int id);
 
-        void AddNewTheatre(TheatreCore theatre);
+        void AddTheatre(TheatreCore theatre);
 
-        void Delete(int id);
+        void DeleteTheatre(int id);
     }
 }

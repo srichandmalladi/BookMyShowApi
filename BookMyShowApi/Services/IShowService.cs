@@ -12,8 +12,8 @@ namespace BookMyShowApi.Services
 
         ShowCore GetShowById(int id);
 
-        void AddNewShow(ShowCore show);
+        void AddShow(ShowCore show);
 
-        void Delete(int id);
+        void DeleteShow(int id);
     }
 }

@@ -28,13 +28,13 @@ namespace BookMyShowApi.Services
             return _mapper.Map<TheatreCore>(theatre);
         }
 
-        public void AddNewTheatre(TheatreCore theatre)
+        public void AddTheatre(TheatreCore theatre)
         {
             Theatre _theatre = _mapper.Map<Theatre>(theatre);
             _dataContext.Insert(_theatre);
         }
 
-        public void Delete(int id)
+        public void DeleteTheatre(int id)
         {
             _dataContext.Delete<Theatre>(id);
         }

@@ -11,14 +11,14 @@ namespace BookMyShowApi.Services
     {
         IEnumerable<MovieCore> GetAllMovies();
 
-        MovieCore GetMovie(int id);
+        MovieCore GetMovieById(int id);
         
-        void AddNewMovie(MovieCore movie);
+        void AddMovie(MovieCore movie);
         
-        void Delete(int id);
+        void DeleteMovie(int id);
 
         IEnumerable<MoviesTheatre> MoviesInCity(string city);
 
-        MoviesTheatre getMovieByShowId(int id);
+        MoviesTheatre GetMovieByShowId(int id);
     }
 }

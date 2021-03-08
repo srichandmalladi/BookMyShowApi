@@ -13,12 +13,12 @@ namespace BookMyShowApi.Services
 
         TicketCore GetTicketById(int id);
 
-        void AddNewTicket(TicketCore Ticket);
+        void AddTicket(TicketCore Ticket);
 
-        void Delete(int id);
+        void DeleteTicket(int id);
 
-        IEnumerable<TicketCore> getTicketsByShowId(int showId);
+        IEnumerable<TicketCore> GetTicketsByShowId(int showId);
 
-        IEnumerable<TicketView> getTicketsByUserId(string userId);
+        IEnumerable<TicketView> GetTicketsByUserId(string userId);
     }
 }
