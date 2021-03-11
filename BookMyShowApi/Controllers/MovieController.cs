@@ -1,8 +1,9 @@
-﻿using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.ViewModels;
+﻿using BookMyShowApi.Models.Core;
+using BookMyShowApi.Models.Core.View;
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BookMyShowApi.Controllers
 {
@@ -19,44 +20,37 @@ namespace BookMyShowApi.Controllers
         
         // GET: api/movie/all
         [Route("all")]
-        public IEnumerable<MovieCore> GetAllMovies()
+        public IEnumerable<Movie> GetAllMovies()
         {
-            return MovieService.GetAllMovies();
+            return this.MovieService.GetAllMovies();
         }
 
         // GET api/movie/id
         [Route("{id}")]
-        public MovieCore GetMovieById(int id)
+        public Movie GetMovieById(int id)
         {
-            return MovieService.GetMovieById(id);
+            return this.MovieService.GetMovieById(id);
         }
 
         // Post api/movie/add
         [Route("add")]
-        public void AddMovie(MovieCore movie)
+        public void AddMovie(Movie movie)
         {
-            MovieService.AddMovie(movie);
-        }
-
-        // DELETE api/movie/delete/id
-        [Route("delete/{id}")]
-        public void DeleteMovie(int id)
-        {
-            MovieService.DeleteMovie(id);
+            this.MovieService.AddMovie(movie);
         }
 
         //GET api/movie/getMovies
         [Route("getMoviesByCity/{city}")]
-        public IEnumerable<MoviesTheatre> MoviesInCity(string city)
+        public IEnumerable<MoviesTheatreView> MoviesInCity(string city)
         {
-            return MovieService.MoviesInCity(city);
+            return this.MovieService.MoviesInCity(city);
         }
 
         //GET api/movie/getMovieByShowId/id
         [Route("getMovieByShowId/{id}")]
-        public MoviesTheatre GetMovieByShowId(int id)
+        public MoviesTheatreView GetMovieByShowId(int id)
         {
-            return MovieService.GetMovieByShowId(id);
+            return this.MovieService.GetMovieByShowId(id);
         }
     }
 }

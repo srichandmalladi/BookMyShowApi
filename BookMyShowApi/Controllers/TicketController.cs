@@ -1,5 +1,5 @@
-﻿using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.ViewModels;
+﻿using BookMyShowApi.Models.Core;
+using BookMyShowApi.Models.Core.View;
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -18,44 +18,44 @@ namespace BookMyShowApi.Controllers
 
         // GET: api/ticket
         [Route("all")]
-        public IEnumerable<TicketCore> GetAllTickets()
+        public IEnumerable<Ticket> GetAllTickets()
         {
-            return TicketService.GetAllTickets();
+            return this.TicketService.GetAllTickets();
         }
 
         // GET api/ticket/id
         [Route("{id}")]
-        public TicketCore GetTicketById(int id)
+        public Ticket GetTicketById(int id)
         {
-            return TicketService.GetTicketById(id);
+            return this.TicketService.GetTicketById(id);
         }
 
         // Post api/ticket/add
         [Route("add")]
-        public void AddTicket(TicketCore Ticket)
+        public object AddTicket(Ticket Ticket)
         {
-            TicketService.AddTicket(Ticket);
-        }
-
-        // DELETE api/ticket/delete/id
-        [Route("delete/{id}")]
-        public void DeleteTicket(int id)
-        {
-            TicketService.DeleteTicket(id);
+            return this.TicketService.AddTicket(Ticket);
         }
 
         //GET api/ticket/getTicketsByShowId
         [Route("getTicketsByShowId/{showId}")]
-        public IEnumerable<TicketCore> GetTicketsByShowId(int showId)
+        public IEnumerable<Ticket> GetTicketsByShowId(int showId)
         {
-            return TicketService.GetTicketsByShowId(showId);
+            return this.TicketService.GetTicketsByShowId(showId);
         }
 
         //GET api/ticket/getTicketsByUserId
         [Route("getTicketsByUserId/{userId}")]
-        public IEnumerable<TicketView> GetTicketsByShowId(string userId)
+        public IEnumerable<TicketView> GetTicketsByUserId(string userId)
         {
-            return TicketService.GetTicketsByUserId(userId);
+            return this.TicketService.GetTicketsByUserId(userId);
+        }
+
+        //GET api/ticket/getTicketsByTicketId
+        [Route("getTicketsByTicketId/{ticketId}")]
+        public TicketView GetTicketsByTicketId(int ticketId)
+        {
+            return this.TicketService.GetTicketsByTicketId(ticketId);
         }
     }
 }

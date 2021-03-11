@@ -1,19 +1,14 @@
-﻿using BookMyShowApi.Models.CoreModels;
-using System;
+﻿using BookMyShowApi.Models.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookMyShowApi.Services
 {
     public interface ITheatreService
     {
-        IEnumerable<TheatreCore> GetAllTheatres();
+        IEnumerable<Theatre> GetAllTheatres();
 
-        TheatreCore GetTheatreById(int id);
+        Theatre GetTheatreById(int id);
 
-        void AddTheatre(TheatreCore theatre);
-
-        void DeleteTheatre(int id);
+        void AddTheatre(Theatre theatre);
     }
 }

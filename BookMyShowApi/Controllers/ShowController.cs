@@ -1,4 +1,4 @@
-﻿using BookMyShowApi.Models.CoreModels;
+﻿using BookMyShowApi.Models.Core;
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -17,30 +17,23 @@ namespace BookMyShowApi.Controllers
 
         // GET: api/show/all
         [Route("all")]
-        public IEnumerable<ShowCore> GetAllShows()
+        public IEnumerable<Show> GetAllShows()
         {
-            return ShowService.GetAllShows();
+            return this.ShowService.GetAllShows();
         }
 
         // GET api/show/id
         [Route("{id}")]
-        public ShowCore GetShowById(int id)
+        public Show GetShowById(int id)
         {
-            return ShowService.GetShowById(id);
+            return this.ShowService.GetShowById(id);
         }
 
         // Post api/show/add
         [Route("add")]
-        public void AddShow(ShowCore show)
+        public void AddShow(Show show)
         {
-            ShowService.AddShow(show);
-        }
-
-        // DELETE api/show/delete/id
-        [Route("delete/{id}")]
-        public void DeleteShow(int id)
-        {
-            ShowService.DeleteShow(id);
+            this.ShowService.AddShow(show);
         }
     }
 }

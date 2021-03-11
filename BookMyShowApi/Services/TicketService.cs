@@ -1,55 +1,56 @@
 ﻿using AutoMapper;
-using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.DataModels;
-using BookMyShowApi.Models.ViewModels;
+using BookMyShowApi.Models.Core;
+using DataModel = BookMyShowApi.Models.Data;
 using System.Collections.Generic;
+using BookMyShowApi.Models.Core.View;
 
 namespace BookMyShowApi.Services
 {
     public class TicketService : ITicketService
     {
-        PetaPoco.Database _dataContext;
-        IMapper _mapper;
+        PetaPoco.Database DataBase;
+        IMapper Mapper;
 
-        public TicketService(IDataBaseContext dbcontext, IMapper mapper)
+        public TicketService(PetaPoco.Database db, IMapper mapper)
         {
-            this._dataContext = dbcontext.getDataBase();
-            this._mapper = mapper;
+            this.DataBase = db;
+            this.Mapper = mapper;
         }
 
-        public IEnumerable<TicketCore> GetAllTickets()
+        public IEnumerable<Ticket> GetAllTickets()
         {
 
-            var tickets = _dataContext.Query<Ticket>("Select * from Ticket");
-            return _mapper.Map<List<TicketCore>>(tickets);
+            var tickets = this.DataBase.Query<DataModel.Ticket>("Select * from Ticket");
+            return this.Mapper.Map<List<Ticket>>(tickets);
         }
 
-        public TicketCore GetTicketById(int id)
+        public Ticket GetTicketById(int id)
         {
-            var ticket = _dataContext.Single<Ticket>("Select * from Ticket where Id=@0", id);
-            return _mapper.Map<TicketCore>(ticket);
+            var ticket = this.DataBase.SingleOrDefault<DataModel.Ticket>("Select * from Ticket where Id=@0", id);
+            return this.Mapper.Map<Ticket>(ticket);
         }
 
-        public void AddTicket(TicketCore ticket)
+        public object AddTicket(Ticket newTicket)
         {
-            Ticket _ticket = _mapper.Map<Ticket>(ticket);
-            _dataContext.Insert(_ticket);
+            DataModel.Ticket ticket = this.Mapper.Map<DataModel.Ticket>(newTicket);
+            return this.DataBase.Insert(ticket);
         }
-
-        public void DeleteTicket(int id)
+        public IEnumerable<Ticket> GetTicketsByShowId(int showId)
         {
-            _dataContext.Delete<Ticket>(id);
-        }
-        public IEnumerable<TicketCore> GetTicketsByShowId(int showId)
-        {
-            var tickets = _dataContext.Query<Ticket>("Select * from Ticket where showId=@0",showId);
-            return _mapper.Map<List<TicketCore>>(tickets);
+            var tickets = this.DataBase.Query<DataModel.Ticket>("Select * from Ticket where showId=@0", showId);
+            return this.Mapper.Map<List<Ticket>>(tickets);
         }
 
         public IEnumerable<TicketView> GetTicketsByUserId(string userId)
         {
-            var tickets= _dataContext.Query<TicketView>("Select * from TicketView where userId=@0 order by Date desc", userId);
-            return tickets;
+            var tickets= this.DataBase.Query<DataModel.View.TicketView>("Select * from TicketView where userId=@0 order by Date desc", userId);
+            return this.Mapper.Map<List<TicketView>>(tickets);
+        }
+
+        public TicketView GetTicketsByTicketId(int ticketId)
+        {
+            var tickets = this.DataBase.SingleOrDefault<DataModel.View.TicketView>("Select * from TicketView where Id=@0", ticketId);
+            return this.Mapper.Map<TicketView>(tickets);
         }
     }
 }

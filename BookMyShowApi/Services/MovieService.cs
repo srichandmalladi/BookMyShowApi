@@ -1,54 +1,49 @@
 ﻿using AutoMapper;
-using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.DataModels;
-using BookMyShowApi.Models.ViewModels;
+using BookMyShowApi.Models.Core;
+using BookMyShowApi.Models.Core.View;
 using System.Collections.Generic;
+using DataModel = BookMyShowApi.Models.Data;
 
 namespace BookMyShowApi.Services
 {
     public class MovieService : IMovieService
     { 
-        PetaPoco.Database _dataContext;
-        IMapper _mapper;
+        PetaPoco.Database DataBase;
+        IMapper Mapper;
 
-        public MovieService(IDataBaseContext dbcontext, IMapper mapper)
+        public MovieService(PetaPoco.Database db, IMapper mapper)
         {
-            this._dataContext = dbcontext.getDataBase();
-            this._mapper = mapper;
+            this.DataBase = db;
+            this.Mapper = mapper;
         }
 
-        public IEnumerable<MovieCore> GetAllMovies()
+        public IEnumerable<Movie> GetAllMovies()
         {
-
-            var movies = _dataContext.Query<Movie>("Select * from Movie");
-            return _mapper.Map<List<MovieCore>>(movies);
+            var movies = this.DataBase.Query<DataModel.Movie>("Select * from Movie");
+            return this.Mapper.Map<List<Movie>>(movies);
         }
 
-        public MovieCore GetMovieById(int id)
+        public Movie GetMovieById(int id)
         {
-            var movie = _dataContext.Single<Movie>("Select * from Movie where Id=@0", id);
-            return _mapper.Map<MovieCore>(movie);
+            var movie = this.DataBase.SingleOrDefault<DataModel.Movie>("Select * from Movie where Id=@0", id);
+            return this.Mapper.Map<Movie>(movie);
         }
 
-        public void AddMovie(MovieCore movie)
+        public void AddMovie(Movie newMovie)
         {
-            Movie _movie = _mapper.Map<Movie>(movie);
-            _dataContext.Insert(_movie);
+            DataModel.Movie movie = this.Mapper.Map<DataModel.Movie>(newMovie);
+            this.DataBase.Insert(movie);
         }
 
-        public void DeleteMovie(int id)
+        public IEnumerable<MoviesTheatreView> MoviesInCity(string city)
         {
-            _dataContext.Delete<Movie>(id);
+            var movies = this.DataBase.Query<DataModel.View.MoviesTheatreView>("select * from MovieTheatreView where City=@0", city);
+            return this.Mapper.Map<List<MoviesTheatreView>>(movies);
         }
 
-        public IEnumerable<MoviesTheatre> MoviesInCity(string city)
+        public MoviesTheatreView GetMovieByShowId(int id)
         {
-            return _dataContext.Query<MoviesTheatre>("select * from Movie_Theatre where City=@0", city);
-        }
-
-        public MoviesTheatre GetMovieByShowId(int id)
-        {
-            return _dataContext.Single<MoviesTheatre>("select * from Movie_Theatre where ShowId=@0", id);
+            return this.DataBase.SingleOrDefault<MoviesTheatreView>("select * from MovieTheatreView where ShowId=@0", id);
         }
     }
 }

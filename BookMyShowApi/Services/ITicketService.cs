@@ -1,24 +1,21 @@
-﻿using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.ViewModels;
-using System;
+﻿using BookMyShowApi.Models.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BookMyShowApi.Models.Core.View;
 
 namespace BookMyShowApi.Services
 {
     public interface ITicketService
     {
-        IEnumerable<TicketCore> GetAllTickets();
+        IEnumerable<Ticket> GetAllTickets();
 
-        TicketCore GetTicketById(int id);
+        Ticket GetTicketById(int id);
 
-        void AddTicket(TicketCore Ticket);
+        object AddTicket(Ticket Ticket);
 
-        void DeleteTicket(int id);
-
-        IEnumerable<TicketCore> GetTicketsByShowId(int showId);
+        IEnumerable<Ticket> GetTicketsByShowId(int showId);
 
         IEnumerable<TicketView> GetTicketsByUserId(string userId);
+
+        TicketView GetTicketsByTicketId(int ticketId);
     }
 }

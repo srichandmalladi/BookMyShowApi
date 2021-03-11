@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PetaPoco;
-
-namespace BookMyShowApi.Models.CoreModels
+﻿namespace BookMyShowApi.Models.Core
 {
-    public class TheatreCore
+    public class Theatre
     {
         public int Id { get; set; }
 

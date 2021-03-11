@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace BookMyShowApi.Models.ViewModels
+﻿namespace BookMyShowApi.Models.Data.View
 {
-    public class MoviesTheatre
+    public class MoviesTheatreView
     {
         public int MovieId { get; set; }
 

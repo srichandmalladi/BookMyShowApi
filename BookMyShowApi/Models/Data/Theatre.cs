@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PetaPoco;
+﻿using PetaPoco;
 
-namespace BookMyShowApi.Models.DataModels
+namespace BookMyShowApi.Models.Data
 {
-    [PetaPoco.TableName("Theater")]
+    [TableName("Theater")]
     public class Theatre
     {
         public int Id { get; set; }

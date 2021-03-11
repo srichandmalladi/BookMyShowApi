@@ -1,19 +1,14 @@
-﻿using BookMyShowApi.Models.CoreModels;
-using System;
+﻿using BookMyShowApi.Models.Core;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookMyShowApi.Services
 {
     public interface IShowService
     {
-        IEnumerable<ShowCore> GetAllShows();
+        IEnumerable<Show> GetAllShows();
 
-        ShowCore GetShowById(int id);
+        Show GetShowById(int id);
 
-        void AddShow(ShowCore show);
-
-        void DeleteShow(int id);
+        void AddShow(Show show);
     }
 }

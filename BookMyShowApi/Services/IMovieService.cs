@@ -1,24 +1,20 @@
-﻿using BookMyShowApi.Models.CoreModels;
-using BookMyShowApi.Models.ViewModels;
-using System;
+﻿using BookMyShowApi.Models.Core;
+using BookMyShowApi.Models.Core.View;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace BookMyShowApi.Services
 {
     public interface IMovieService
     {
-        IEnumerable<MovieCore> GetAllMovies();
+        IEnumerable<Movie> GetAllMovies();
 
-        MovieCore GetMovieById(int id);
+        Movie GetMovieById(int id);
         
-        void AddMovie(MovieCore movie);
-        
-        void DeleteMovie(int id);
+        void AddMovie(Movie movie);
 
-        IEnumerable<MoviesTheatre> MoviesInCity(string city);
+        IEnumerable<MoviesTheatreView> MoviesInCity(string city);
 
-        MoviesTheatre GetMovieByShowId(int id);
+        MoviesTheatreView GetMovieByShowId(int id);
     }
 }

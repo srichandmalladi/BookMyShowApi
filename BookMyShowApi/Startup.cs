@@ -1,18 +1,18 @@
 using BookMyShowApi.Data;
+using BookMyShowApi.Models;
+using BookMyShowApi.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Identity;
-using BookMyShowApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using SimpleInjector;
-using BookMyShowApi.Services;
+using System;
+using System.Text;
 
 namespace BookMyShowApi
 {
@@ -36,8 +36,6 @@ namespace BookMyShowApi
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
-
-            services.Configure<AppSettings>(Configuration.GetSection("ConnectionStrings"));
 
             services.AddDbContext<AuthenticationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("authenticationContext")));
@@ -89,6 +87,7 @@ namespace BookMyShowApi
             );
             services.AddControllersWithViews();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddSimpleInjector(container, options =>
             {
                 options.AddAspNetCore()
@@ -99,12 +98,12 @@ namespace BookMyShowApi
 
                 options.AddLogging();
                 options.AddLocalization();
+                container.Register<PetaPoco.Database>(() => new PetaPoco.Database(Configuration.GetConnectionString("bookmyshow"), "System.Data.SqlClient"), Lifestyle.Scoped);
 
-                container.Register<IMovieService, MovieService>();
-                container.Register<ITheatreService, TheatreService>();
-                container.Register<ITicketService, TicketService>();
-                container.Register<IShowService, ShowService>(Lifestyle.Transient);
-                container.Register<IDataBaseContext, DataBaseContext>();
+                container.Register<IMovieService, MovieService>(Lifestyle.Scoped);
+                container.Register<ITheatreService, TheatreService>(Lifestyle.Scoped);
+                container.Register<ITicketService, TicketService>(Lifestyle.Scoped);
+                container.Register<IShowService, ShowService>(Lifestyle.Scoped);
             });
         }
 

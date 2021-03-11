@@ -1,4 +1,4 @@
-﻿using BookMyShowApi.Models.CoreModels;
+﻿using BookMyShowApi.Models.Core;
 using BookMyShowApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -17,30 +17,23 @@ namespace BookMyShowApi.Controllers
 
         // GET: api/theatre/all
         [Route("all")]
-        public IEnumerable<TheatreCore> GetAllTheatres()
+        public IEnumerable<Theatre> GetAllTheatres()
         {
-            return TheatreService.GetAllTheatres();
+            return this.TheatreService.GetAllTheatres();
         }
 
         // GET api/theatre/id
         [Route("{id}")]
-        public TheatreCore GetTheatreById(int id)
+        public Theatre GetTheatreById(int id)
         {
-            return TheatreService.GetTheatreById(id);
+            return this.TheatreService.GetTheatreById(id);
         }
 
         // Post api/theatre/add
         [Route("add")]
-        public void AddTheatre(TheatreCore theatre)
+        public void AddTheatre(Theatre theatre)
         {
-            TheatreService.AddTheatre(theatre);
-        }
-
-        // DELETE api/theatre/delete/id
-        [Route("delete/{id}")]
-        public void DeleteTheatre(int id)
-        {
-            TheatreService.DeleteTheatre(id);
+            this.TheatreService.AddTheatre(theatre);
         }
     }
 }
